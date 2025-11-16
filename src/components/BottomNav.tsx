@@ -1,13 +1,16 @@
 import { NavLink } from "react-router-dom";
 import { Home, ClipboardList, MessageCircle, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const BottomNav = () => {
+  const { t } = useTranslation();  // ⬅️ use i18n here
+
   const navItems = [
-    { to: "/", icon: Home, label: "Home" },
-    { to: "/history", icon: ClipboardList, label: "History" },
-    { to: "/assistant", icon: MessageCircle, label: "Assistant" },
-    { to: "/profile", icon: User, label: "Profile" },
+    { to: "/", icon: Home, label: t("nav.home") },
+    { to: "/history", icon: ClipboardList, label: t("nav.history") },
+    { to: "/assistant", icon: MessageCircle, label: t("nav.chat") },
+    { to: "/profile", icon: User, label: t("nav.profile") },
   ];
 
   return (
@@ -34,3 +37,4 @@ export const BottomNav = () => {
     </nav>
   );
 };
+
