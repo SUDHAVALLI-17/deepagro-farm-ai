@@ -1,0 +1,78 @@
+export const hi = {
+  // Common
+  app_name: "डीपएग्रो",
+  loading: "लोड हो रहा है...",
+  save: "सहेजें",
+  cancel: "रद्द करें",
+  delete: "हटाएं",
+  edit: "संपादित करें",
+  logout: "लॉगआउट",
+  
+  // Auth
+  login: "लॉगिन",
+  signup: "साइन अप",
+  email: "ईमेल",
+  password: "पासवर्ड",
+  farmer_name: "किसान का नाम",
+  phone_number: "फोन नंबर",
+  location: "स्थान",
+  already_have_account: "पहले से खाता है?",
+  dont_have_account: "खाता नहीं है?",
+  create_account: "खाता बनाएं",
+  
+  // Home
+  home: "होम",
+  welcome: "डीपएग्रो में आपका स्वागत है",
+  crop_prediction: "फसल पूर्वानुमान",
+  disease_detection: "रोग का पता लगाना",
+  fertilizer_prediction: "उर्वरक पूर्वानुमान",
+  ai_assistant: "एआई सहायक",
+  
+  // Profile
+  profile: "प्रोफ़ाइल",
+  manage_account: "अपने खाते का प्रबंधन करें",
+  edit_profile: "प्रोफ़ाइल संपादित करें",
+  farm_size: "खेत का आकार",
+  primary_crops: "मुख्य फसलें",
+  notifications: "सूचनाएं",
+  push_notifications: "पुश सूचनाएं",
+  receive_alerts: "अलर्ट और अपडेट प्राप्त करें",
+  weather_alerts: "मौसम अलर्ट",
+  get_weather_warnings: "मौसम चेतावनी प्राप्त करें",
+  pest_alerts: "कीट प्रकोप अलर्ट",
+  regional_pest_warnings: "क्षेत्रीय कीट चेतावनी",
+  tips_suggestions: "सुझाव और टिप्स",
+  daily_farming_tips: "दैनिक खेती के सुझाव",
+  preferences: "प्राथमिकताएं",
+  language: "भाषा",
+  units: "इकाइयां",
+  metric: "मीट्रिक",
+  app_information: "ऐप जानकारी",
+  about_deepagro: "डीपएग्रो के बारे में",
+  help_support: "सहायता और समर्थन",
+  version: "संस्करण",
+  
+  // History
+  history: "इतिहास",
+  your_activity: "आपकी गतिविधि इतिहास",
+  no_history: "अभी तक कोई इतिहास नहीं",
+  delete_history: "इतिहास हटाएं",
+  confirm_delete: "क्या आप इस आइटम को हटाना चाहते हैं?",
+  
+  // About
+  about: "के बारे में",
+  about_description: "डीपएग्रो आपका बुद्धिमान खेती साथी है, किसानों को बेहतर निर्णय लेने में मदद करने के लिए एआई तकनीक द्वारा संचालित।",
+  our_mission: "हमारा मिशन",
+  mission_text: "बेहतर फसल उपज और टिकाऊ खेती प्रथाओं के लिए किसानों को अत्याधुनिक तकनीक से सशक्त बनाना।",
+  features: "विशेषताएं",
+  feature_1: "एआई-संचालित फसल पूर्वानुमान",
+  feature_2: "छवि विश्लेषण का उपयोग करके रोग का पता लगाना",
+  feature_3: "स्मार्ट उर्वरक सिफारिशें",
+  feature_4: "24/7 एआई खेती सहायक",
+  
+  // Features
+  predict_best_crop: "अपनी मिट्टी के लिए सर्वोत्तम फसल की भविष्यवाणी करें",
+  detect_plant_diseases: "पौधों की बीमारियों का तुरंत पता लगाएं",
+  get_fertilizer_advice: "उर्वरक सिफारिशें प्राप्त करें",
+  ask_farming_questions: "खेती के सवाल पूछें",
+};

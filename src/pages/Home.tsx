@@ -1,13 +1,29 @@
 import { FeatureCard } from "@/components/FeatureCard";
 import { Card } from "@/components/ui/card";
 import { Leaf, Bug, Beaker, MessageCircle, Cloud, Droplets, ThermometerSun, Bell } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/auth");
+    }
+  }, [user, navigate]);
+
   const weatherData = {
     temperature: 28,
     humidity: 65,
     rainfall: "Low",
   };
+
+  if (!user) return null;
 
   return (
     <div className="pb-20 min-h-screen">
@@ -16,10 +32,10 @@ const Home = () => {
         <div className="max-w-lg mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-bold mb-1">Hello, Farmer! 👋</h1>
+              <h1 className="text-2xl font-bold mb-1">{t("welcome")} 👋</h1>
               <p className="text-white/90 text-sm flex items-center gap-1">
                 <Cloud className="h-4 w-4" />
-                Your Location
+                {t("location")}
               </p>
             </div>
             <button className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition">
@@ -54,25 +70,25 @@ const Home = () => {
         
         <div className="grid grid-cols-2 gap-4 mb-6">
           <FeatureCard
-            title="Crop Prediction"
+            title={t("crop_prediction")}
             icon={Leaf}
             gradient="gradient-crop"
             to="/crop-prediction"
           />
           <FeatureCard
-            title="Disease Detection"
+            title={t("disease_detection")}
             icon={Bug}
             gradient="gradient-disease"
             to="/disease-detection"
           />
           <FeatureCard
-            title="Fertilizer Guide"
+            title={t("fertilizer_prediction")}
             icon={Beaker}
             gradient="gradient-fertilizer"
             to="/fertilizer-prediction"
           />
           <FeatureCard
-            title="AI Assistant"
+            title={t("ai_assistant")}
             icon={MessageCircle}
             gradient="gradient-ai"
             to="/assistant"
