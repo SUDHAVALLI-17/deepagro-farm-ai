@@ -7,7 +7,7 @@ export const en = {
   delete: "Delete",
   edit: "Edit",
   logout: "Logout",
-  
+
   // Auth
   login: "Login",
   signup: "Sign Up",
@@ -19,7 +19,15 @@ export const en = {
   already_have_account: "Already have an account?",
   dont_have_account: "Don't have an account?",
   create_account: "Create Account",
-  
+
+  // Navigation (for BottomNav etc.)
+  nav: {
+    home: "Home",
+    history: "History",
+    chat: "Assistant",
+    profile: "Profile",
+  },
+
   // Home
   home: "Home",
   welcome: "Welcome to DeepAgro",
@@ -27,7 +35,16 @@ export const en = {
   disease_detection: "Disease Detection",
   fertilizer_prediction: "Fertilizer Prediction",
   ai_assistant: "AI Assistant",
-  
+
+  // NEW: Home – weather & tips
+  temperature: "Temperature",
+  humidity: "Humidity",
+  rainfall: "Rainfall",
+  smart_agriculture_tools: "Smart Agriculture Tools",
+  todays_farming_tip_title: "Today's Farming Tip",
+  todays_farming_tip_body:
+    "Early morning is the best time for irrigation as it reduces water loss due to evaporation and allows plants to absorb nutrients efficiently.",
+
   // Profile
   profile: "Profile",
   manage_account: "Manage your account",
@@ -51,25 +68,27 @@ export const en = {
   about_deepagro: "About DeepAgro",
   help_support: "Help & Support",
   version: "Version",
-  
+
   // History
   history: "History",
   your_activity: "Your activity history",
   no_history: "No history yet",
   delete_history: "Delete History",
   confirm_delete: "Are you sure you want to delete this item?",
-  
+
   // About
   about: "About",
-  about_description: "DeepAgro is your intelligent farming companion, powered by AI technology to help farmers make better decisions.",
+  about_description:
+    "DeepAgro is your intelligent farming companion, powered by AI technology to help farmers make better decisions.",
   our_mission: "Our Mission",
-  mission_text: "To empower farmers with cutting-edge technology for better crop yield and sustainable farming practices.",
+  mission_text:
+    "To empower farmers with cutting-edge technology for better crop yield and sustainable farming practices.",
   features: "Features",
   feature_1: "AI-powered crop prediction",
   feature_2: "Disease detection using image analysis",
   feature_3: "Smart fertilizer recommendations",
   feature_4: "24/7 AI farming assistant",
-  
+
   // Features
   predict_best_crop: "Predict the best crop for your soil",
   detect_plant_diseases: "Detect plant diseases instantly",
