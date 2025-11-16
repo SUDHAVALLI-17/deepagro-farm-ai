@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send, Sparkles } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslation } from "react-i18next";
 
 interface Message {
   id: string;
@@ -14,11 +15,13 @@ interface Message {
 }
 
 const Assistant = () => {
+  const { t } = useTranslation();
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
       role: "assistant",
-      content: "Hello! I'm DeepChat, your AI agricultural expert. Ask me anything about farming, crops, pests, or soil management. How can I help you today?",
+      content: t("assistant_initial_message"),
       timestamp: new Date(),
     },
   ]);
@@ -27,10 +30,10 @@ const Assistant = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const quickSuggestions = [
-    "Best crops for my region",
-    "Pest control tips",
-    "Weather forecast impact",
-    "Irrigation schedule",
+    t("assistant_suggestion_1"),
+    t("assistant_suggestion_2"),
+    t("assistant_suggestion_3"),
+    t("assistant_suggestion_4"),
   ];
 
   useEffect(() => {
@@ -53,13 +56,13 @@ const Assistant = () => {
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI response
+    // Simulated AI response (now translatable)
     setTimeout(() => {
       const responses = [
-        "Based on your soil conditions and climate, I recommend considering rice cultivation. Rice thrives in well-irrigated fields with clay or loamy soil. Make sure to maintain proper water levels throughout the growing season.",
-        "For effective pest control, I suggest integrated pest management (IPM). Start with biological controls, use neem-based pesticides, and only resort to chemical pesticides as a last resort. Regular monitoring is key.",
-        "The current weather patterns suggest good conditions for planting. However, keep an eye on the forecast for the next two weeks. If heavy rainfall is expected, delay planting to avoid waterlogging.",
-        "For optimal irrigation, water your crops early in the morning or late evening. This reduces water loss due to evaporation. Drip irrigation is most efficient for water conservation.",
+        t("assistant_response_1"),
+        t("assistant_response_2"),
+        t("assistant_response_3"),
+        t("assistant_response_4"),
       ];
 
       const aiMessage: Message = {
@@ -81,8 +84,8 @@ const Assistant = () => {
   return (
     <div className="pb-20 h-screen flex flex-col">
       <PageHeader
-        title="DeepChat"
-        subtitle="Your Agricultural Expert"
+        title={t("assistant_title")}
+        subtitle={t("assistant_subtitle")}
         showBack={true}
       />
 
@@ -140,7 +143,7 @@ const Assistant = () => {
         {messages.length === 1 && (
           <div className="px-4 mb-4">
             <p className="text-sm text-muted-foreground mb-3 text-center">
-              Quick suggestions:
+              {t("assistant_quick_suggestions_label")}
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
               {quickSuggestions.map((suggestion, index) => (
@@ -164,7 +167,7 @@ const Assistant = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSend()}
-              placeholder="Ask me anything about farming..."
+              placeholder={t("assistant_input_placeholder")}
               className="flex-1"
             />
             <Button
