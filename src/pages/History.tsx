@@ -4,13 +4,22 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Leaf, Bug, Beaker, MessageCircle, MoreVertical, Share2, Trash2 } from "lucide-react";
+import {
+  Leaf,
+  Bug,
+  Beaker,
+  MessageCircle,
+  MoreVertical,
+  Share2,
+  Trash2,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
 
 const mockHistory = [
   {
@@ -48,7 +57,9 @@ const mockHistory = [
 ];
 
 const History = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("all");
+  const [history, setHistory] = useState(mockHistory);
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -66,47 +77,62 @@ const History = () => {
   const getTypeLabel = (type: string) => {
     switch (type) {
       case "crop":
-        return "Crop";
+        return t("history_type_crop");
       case "disease":
-        return "Disease";
+        return t("history_type_disease");
       case "fertilizer":
-        return "Fertilizer";
+        return t("history_type_fertilizer");
       default:
-        return "Chat";
+        return t("history_type_chat");
     }
+  };
+
+  const handleDelete = (id: string) => {
+    const confirmed = window.confirm(t("confirm_delete"));
+    if (!confirmed) return;
+
+    setHistory((prev) => prev.filter((item) => item.id !== id));
+    // 🔜 later: also call backend/Supabase delete here
   };
 
   const filteredHistory =
     activeTab === "all"
-      ? mockHistory
-      : mockHistory.filter((item) => item.type === activeTab);
+      ? history
+      : history.filter((item) => item.type === activeTab);
 
   return (
     <div className="pb-20 min-h-screen">
       <PageHeader
-        title="History"
-        subtitle="Your predictions and consultations"
+        title={t("history")}
+        subtitle={t("history_subtitle")}
         showBack={false}
       />
 
       <div className="max-w-lg mx-auto px-4 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="crop">Crop</TabsTrigger>
-            <TabsTrigger value="disease">Disease</TabsTrigger>
-            <TabsTrigger value="fertilizer">Fertilizer</TabsTrigger>
+            <TabsTrigger value="all">{t("history_tab_all")}</TabsTrigger>
+            <TabsTrigger value="crop">{t("history_tab_crop")}</TabsTrigger>
+            <TabsTrigger value="disease">
+              {t("history_tab_disease")}
+            </TabsTrigger>
+            <TabsTrigger value="fertilizer">
+              {t("history_tab_fertilizer")}
+            </TabsTrigger>
           </TabsList>
         </Tabs>
 
         <div className="space-y-4">
           {filteredHistory.length === 0 ? (
             <Card className="p-8 text-center">
-              <p className="text-muted-foreground">No records found</p>
+              <p className="text-muted-foreground">{t("no_history")}</p>
             </Card>
           ) : (
             filteredHistory.map((item) => (
-              <Card key={item.id} className="p-4 hover:shadow-md transition-shadow">
+              <Card
+                key={item.id}
+                className="p-4 hover:shadow-md transition-shadow"
+              >
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-lg bg-muted">
                     {getIcon(item.type)}
@@ -126,18 +152,30 @@ const History = () => {
                       </div>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="shrink-0"
+                          >
                             <MoreVertical className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              // TODO: implement share later
+                              // e.g. navigator.share(...) if supported
+                            }}
+                          >
                             <Share2 className="h-4 w-4 mr-2" />
-                            Share
+                            {t("share")}
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="text-destructive">
+                          <DropdownMenuItem
+                            className="text-destructive"
+                            onClick={() => handleDelete(item.id)}
+                          >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete
+                            {t("delete")}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -149,7 +187,7 @@ const History = () => {
                         {item.result}
                       </span>
                       <span className="text-xs text-muted-foreground">
-                        {item.confidence}% confidence
+                        {item.confidence}% {t("confidence")}
                       </span>
                     </div>
                   </div>
@@ -160,6 +198,11 @@ const History = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+export default History;
+
   );
 };
 
