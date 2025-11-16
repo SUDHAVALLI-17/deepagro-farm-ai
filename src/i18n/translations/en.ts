@@ -20,7 +20,7 @@ export const en = {
   dont_have_account: "Don't have an account?",
   create_account: "Create Account",
 
-  // Navigation (for BottomNav etc.)
+  // Navigation (used in BottomNav)
   nav: {
     home: "Home",
     history: "History",
@@ -36,7 +36,7 @@ export const en = {
   fertilizer_prediction: "Fertilizer Prediction",
   ai_assistant: "AI Assistant",
 
-  // NEW: Home – weather & tips
+  // Home – weather & tips
   temperature: "Temperature",
   humidity: "Humidity",
   rainfall: "Rainfall",
@@ -76,6 +76,19 @@ export const en = {
   delete_history: "Delete History",
   confirm_delete: "Are you sure you want to delete this item?",
 
+  // History – extra UI strings
+  history_subtitle: "Your predictions and consultations",
+  history_tab_all: "All",
+  history_tab_crop: "Crop",
+  history_tab_disease: "Disease",
+  history_tab_fertilizer: "Fertilizer",
+  history_type_crop: "Crop",
+  history_type_disease: "Disease",
+  history_type_fertilizer: "Fertilizer",
+  history_type_chat: "Chat",
+  share: "Share",
+  confidence: "confidence",
+
   // About
   about: "About",
   about_description:
@@ -94,4 +107,26 @@ export const en = {
   detect_plant_diseases: "Detect plant diseases instantly",
   get_fertilizer_advice: "Get fertilizer recommendations",
   ask_farming_questions: "Ask farming questions",
+
+  // Assistant / AI chat
+  assistant_title: "DeepChat",
+  assistant_subtitle: "Your Agricultural Expert",
+  assistant_initial_message:
+    "Hello! I'm DeepChat, your AI agricultural expert. Ask me anything about farming, crops, pests, or soil management. How can I help you today?",
+  assistant_quick_suggestions_label: "Quick suggestions:",
+  assistant_suggestion_1: "Best crops for my region",
+  assistant_suggestion_2: "Pest control tips",
+  assistant_suggestion_3: "Weather forecast impact",
+  assistant_suggestion_4: "Irrigation schedule",
+  assistant_input_placeholder: "Ask me anything about farming...",
+
+  assistant_response_1:
+    "Based on your soil conditions and climate, I recommend considering rice cultivation. Rice thrives in well-irrigated fields with clay or loamy soil. Make sure to maintain proper water levels throughout the growing season.",
+  assistant_response_2:
+    "For effective pest control, I suggest integrated pest management (IPM). Start with biological controls, use neem-based pesticides, and only resort to chemical pesticides as a last resort. Regular monitoring is key.",
+  assistant_response_3:
+    "The current weather patterns suggest good conditions for planting. However, keep an eye on the forecast for the next two weeks. If heavy rainfall is expected, delay planting to avoid waterlogging.",
+  assistant_response_4:
+    "For optimal irrigation, water your crops early in the morning or late evening. This reduces water loss due to evaporation. Drip irrigation is most efficient for water conservation.",
 };
+
