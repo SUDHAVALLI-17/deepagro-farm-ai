@@ -176,15 +176,15 @@ const Assistant = () => {
   };
 
   return (
-    <div className="pb-20 h-screen flex flex-col">
+    <div className="pb-20 min-h-screen flex flex-col">
       <PageHeader
         title={t("assistant_title")}
         subtitle={t("assistant_subtitle")}
         showBack={true}
       />
 
-      <div className="flex-1 overflow-hidden max-w-lg mx-auto w-full">
-        <ScrollArea className="h-full px-4 py-4" ref={scrollRef}>
+      <div className="flex-1 flex flex-col max-w-lg mx-auto w-full overflow-hidden">
+        <ScrollArea className="flex-1 px-4 py-4">
           <div className="space-y-4 pb-4">
             {messages.map((message) => (
               <div
@@ -236,7 +236,7 @@ const Assistant = () => {
         </ScrollArea>
 
         {messages.length === 1 && (
-          <div className="px-4 mb-4">
+          <div className="px-4 pb-2">
             <p className="text-sm text-muted-foreground mb-3 text-center">
               {t("assistant_quick_suggestions_label")}
             </p>
@@ -256,19 +256,20 @@ const Assistant = () => {
           </div>
         )}
 
-        <div className="p-4 bg-background border-t">
-          <div className="flex gap-2 max-w-lg mx-auto">
+        <div className="p-4 bg-background border-t shrink-0">
+          <div className="flex gap-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSend()}
+              onKeyPress={(e) => e.key === "Enter" && !isTyping && handleSend()}
               placeholder={t("assistant_input_placeholder")}
               className="flex-1"
+              disabled={isTyping}
             />
             <Button
               onClick={handleSend}
               disabled={!input.trim() || isTyping}
-              className="gradient-ai border-0"
+              className="gradient-ai border-0 shrink-0"
             >
               {isTyping ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
