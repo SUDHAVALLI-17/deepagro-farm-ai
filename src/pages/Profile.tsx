@@ -327,7 +327,11 @@ const Profile = () => {
               <Info className="h-4 w-4 mr-3" />
               {t("about_deepagro")}
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button 
+              variant="ghost" 
+              className="w-full justify-start"
+              onClick={() => navigate("/about")}
+            >
               <HelpCircle className="h-4 w-4 mr-3" />
               {t("help_support")}
             </Button>
