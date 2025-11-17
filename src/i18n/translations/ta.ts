@@ -50,6 +50,9 @@ export const ta = {
   app_information: "பயன்பாட்டு தகவல்",
   about_deepagro: "டீப்அக்ரோ பற்றி",
   help_support: "உதவி மற்றும் ஆதரவு",
+  contact_us: "எங்களை தொடர்பு கொள்ளுங்கள்",
+  contact_phone: "தொலைபேசி",
+  contact_email: "மின்னஞ்சல்",
   version: "பதிப்பு",
   
   // History

@@ -67,6 +67,9 @@ export const en = {
   app_information: "App Information",
   about_deepagro: "About DeepAgro",
   help_support: "Help & Support",
+  contact_us: "Contact Us",
+  contact_phone: "Phone",
+  contact_email: "Email",
   version: "Version",
 
   // History

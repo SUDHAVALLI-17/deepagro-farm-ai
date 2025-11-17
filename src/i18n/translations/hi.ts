@@ -50,6 +50,9 @@ export const hi = {
   app_information: "ऐप जानकारी",
   about_deepagro: "डीपएग्रो के बारे में",
   help_support: "सहायता और समर्थन",
+  contact_us: "हमसे संपर्क करें",
+  contact_phone: "फोन",
+  contact_email: "ईमेल",
   version: "संस्करण",
   
   // History
