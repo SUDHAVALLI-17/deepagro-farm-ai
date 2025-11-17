@@ -50,6 +50,9 @@ export const te = {
   app_information: "యాప్ సమాచారం",
   about_deepagro: "డీప్‌అగ్రో గురించి",
   help_support: "సహాయం మరియు మద్దతు",
+  contact_us: "మమ్మల్ని సంప్రదించండి",
+  contact_phone: "ఫోన్",
+  contact_email: "ఇమెయిల్",
   version: "వెర్షన్",
   
   // History

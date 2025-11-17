@@ -50,6 +50,9 @@ export const kn = {
   app_information: "ಅಪ್ಲಿಕೇಶನ್ ಮಾಹಿತಿ",
   about_deepagro: "ಡೀಪ್‌ಅಗ್ರೋ ಬಗ್ಗೆ",
   help_support: "ಸಹಾಯ ಮತ್ತು ಬೆಂಬಲ",
+  contact_us: "ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ",
+  contact_phone: "ಫೋನ್",
+  contact_email: "ಇಮೇಲ್",
   version: "ಆವೃತ್ತಿ",
   
   // History

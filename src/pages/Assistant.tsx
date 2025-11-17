@@ -3,9 +3,10 @@ import { PageHeader } from "@/components/PageHeader";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send, Sparkles } from "lucide-react";
+import { Send, Sparkles, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslation } from "react-i18next";
+import { useToast } from "@/hooks/use-toast";
 
 interface Message {
   id: string;
@@ -16,6 +17,7 @@ interface Message {
 
 const Assistant = () => {
   const { t } = useTranslation();
+  const { toast } = useToast();
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -43,7 +45,7 @@ const Assistant = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isTyping) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -53,28 +55,120 @@ const Assistant = () => {
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    const userInput = input;
     setInput("");
     setIsTyping(true);
 
-    // Simulated AI response (now translatable)
-    setTimeout(() => {
-      const responses = [
-        t("assistant_response_1"),
-        t("assistant_response_2"),
-        t("assistant_response_3"),
-        t("assistant_response_4"),
-      ];
+    try {
+      const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+      
+      const response = await fetch(CHAT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map(m => ({
+            role: m.role,
+            content: m.content
+          }))
+        }),
+      });
 
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: responses[Math.floor(Math.random() * responses.length)],
-        timestamp: new Date(),
-      };
+      if (!response.ok) {
+        if (response.status === 429) {
+          toast({
+            title: "Rate limit exceeded",
+            description: "Please try again in a moment.",
+            variant: "destructive",
+          });
+          throw new Error("Rate limited");
+        }
+        if (response.status === 402) {
+          toast({
+            title: "Service unavailable",
+            description: "Please contact support.",
+            variant: "destructive",
+          });
+          throw new Error("Payment required");
+        }
+        throw new Error("Failed to get response");
+      }
 
-      setMessages((prev) => [...prev, aiMessage]);
+      if (!response.body) throw new Error("No response body");
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let textBuffer = "";
+      let aiContent = "";
+      let streamDone = false;
+
+      // Create assistant message placeholder
+      const assistantId = (Date.now() + 1).toString();
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: assistantId,
+          role: "assistant",
+          content: "",
+          timestamp: new Date(),
+        },
+      ]);
+
+      while (!streamDone) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        textBuffer += decoder.decode(value, { stream: true });
+
+        let newlineIndex: number;
+        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+          let line = textBuffer.slice(0, newlineIndex);
+          textBuffer = textBuffer.slice(newlineIndex + 1);
+
+          if (line.endsWith("\r")) line = line.slice(0, -1);
+          if (line.startsWith(":") || line.trim() === "") continue;
+          if (!line.startsWith("data: ")) continue;
+
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === "[DONE]") {
+            streamDone = true;
+            break;
+          }
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) {
+              aiContent += content;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === assistantId ? { ...m, content: aiContent } : m
+                )
+              );
+            }
+          } catch {
+            textBuffer = line + "\n" + textBuffer;
+            break;
+          }
+        }
+      }
+
       setIsTyping(false);
-    }, 2000);
+    } catch (error) {
+      console.error("Error:", error);
+      setIsTyping(false);
+      
+      // Remove user message on error
+      setMessages((prev) => prev.filter((m) => m.content !== userInput));
+      
+      toast({
+        title: "Error",
+        description: "Failed to get response. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -129,10 +223,11 @@ const Assistant = () => {
             {isTyping && (
               <div className="flex justify-start">
                 <Card className="max-w-[80%] p-4 bg-muted">
-                  <div className="flex gap-2">
-                    <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-                    <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-100" />
-                    <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-200" />
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 text-primary animate-spin" />
+                    <p className="text-sm text-muted-foreground">
+                      {t("assistant_typing")}
+                    </p>
                   </div>
                 </Card>
               </div>
@@ -175,7 +270,11 @@ const Assistant = () => {
               disabled={!input.trim() || isTyping}
               className="gradient-ai border-0"
             >
-              <Send className="h-5 w-5" />
+              {isTyping ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Send className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
